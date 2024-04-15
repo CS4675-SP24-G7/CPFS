@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<header>
+    <link rel="stylesheet" href="{% static 'css/app.min.css' %}">
+
+</header>
+
+<body>
+
+    <div class="w-screen h-screen bg-ebony-950 p-10 flex flex-col items-center gap-7">
+        <div class="lg:w-8/12 sm:w-full flex flex-col gap-8">
+            <div>
+
+                <div class="flex flex-col gap-8">
+                    <div class="text-white text-3xl">Customer Product Feedback System</div>
+                    <div class="text-gray-300 text-lg">Welcome back, Max</div>
+                </div>
+
+
+            </div>
+
+            <div class="flex flex-col">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
