@@ -8,17 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Customer Product Feedback System</title>
     <link rel="stylesheet" href="{% static 'css/app.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
 </head>
 
 <body>
 
-    <div class="w-screen h-screen bg-ebony-950 p-10 flex flex-col items-center gap-7">
-        <div class="2xl:w-5/12 xl:w-7/12 lg:w-8/12 md:w-full sm:w-full flex flex-col gap-8">
+    <div class="w-screen h-screen overflow-auto bg-ebony-950 px-10 py-16 flex flex-col items-center gap-7">
+        <div class="2xl:w-5/12 xl:w-7/12 lg:w-8/12 md:w-10/12 sm:w-full flex flex-col gap-8">
             <div>
 
-                <div class="flex flex-col gap-8">
-                    <div class="text-white text-3xl">Customer Product Feedback System</div>
+                <div class="flex flex-col gap-6">
+                    <div class="text-white text-3xl font-bold">Customer Product Feedback System</div>
                     <div class="text-gray-300 text-lg">Welcome back, Max</div>
                 </div>
 
@@ -31,7 +32,11 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="{% static 'js/helpers.js' %}"></script>
     <script src="{% static 'js/prompt.js' %}"></script>
+
 </body>
 
 </html>

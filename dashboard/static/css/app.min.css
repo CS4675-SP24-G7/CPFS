@@ -554,8 +554,16 @@ video {
   --tw-contain-style:  ;
 }
 
+.visible {
+  visibility: visible;
+}
+
 .static {
   position: static;
+}
+
+.mt-3 {
+  margin-top: 0.75rem;
 }
 
 .block {
@@ -564,6 +572,10 @@ video {
 
 .flex {
   display: flex;
+}
+
+.hidden {
+  display: none;
 }
 
 .h-5 {
@@ -601,6 +613,18 @@ video {
 .h-fit {
   height: -moz-fit-content;
   height: fit-content;
+}
+
+.h-20 {
+  height: 5rem;
+}
+
+.h-52 {
+  height: 13rem;
+}
+
+.h-32 {
+  height: 8rem;
 }
 
 .w-5 {
@@ -646,6 +670,10 @@ video {
 
 .w-12 {
   width: 3rem;
+}
+
+.w-20 {
+  width: 5rem;
 }
 
 .flex-1 {
@@ -698,6 +726,22 @@ video {
   gap: 2rem;
 }
 
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.gap-6 {
+  gap: 1.5rem;
+}
+
+.gap-1 {
+  gap: 0.25rem;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
 .rounded-2xl {
   border-radius: 1rem;
 }
@@ -721,6 +765,16 @@ video {
 .border-slate-700 {
   --tw-border-opacity: 1;
   border-color: rgb(51 65 85 / var(--tw-border-opacity));
+}
+
+.border-slate-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(71 85 105 / var(--tw-border-opacity));
+}
+
+.border-slate-800 {
+  --tw-border-opacity: 1;
+  border-color: rgb(30 41 59 / var(--tw-border-opacity));
 }
 
 .bg-ebony-950 {
@@ -761,6 +815,21 @@ video {
 .bg-ebony-900 {
   --tw-bg-opacity: 1;
   background-color: rgb(31 61 144 / var(--tw-bg-opacity));
+}
+
+.bg-midnight-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(92 140 248 / var(--tw-bg-opacity));
+}
+
+.bg-midnight-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(63 103 236 / var(--tw-bg-opacity));
+}
+
+.bg-midnight-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(42 65 133 / var(--tw-bg-opacity));
 }
 
 .p-10 {
@@ -809,6 +878,26 @@ video {
   padding-bottom: 1.75rem;
 }
 
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.py-12 {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.py-14 {
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+}
+
+.py-16 {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
 .pl-1 {
   padding-left: 0.25rem;
 }
@@ -827,6 +916,10 @@ video {
 
 .font-serif {
   font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+.font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 .text-2xl {
@@ -854,8 +947,22 @@ video {
   line-height: 1.75rem;
 }
 
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
 .font-bold {
   font-weight: 700;
+}
+
+.leading-relaxed {
+  line-height: 1.625;
 }
 
 .text-gray-200 {
@@ -882,9 +989,17 @@ video {
   accent-color: #6366f1;
 }
 
+.accent-midnight-500 {
+  accent-color: #5c8cf8;
+}
+
 .outline-none {
   outline: 2px solid transparent;
   outline-offset: 2px;
+}
+
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .transition {
@@ -918,8 +1033,21 @@ video {
   background-color: rgb(185 28 28 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-midnight-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(49 83 209 / var(--tw-bg-opacity));
+}
+
+.hover\:font-bold:hover {
+  font-weight: 700;
+}
+
 .hover\:accent-indigo-700:hover {
   accent-color: #4338ca;
+}
+
+.hover\:accent-midnight-700:hover {
+  accent-color: #3153d1;
 }
 
 .focus\:outline:focus {
@@ -947,6 +1075,10 @@ video {
 @media (min-width: 768px) {
   .md\:w-full {
     width: 100%;
+  }
+
+  .md\:w-10\/12 {
+    width: 83.333333%;
   }
 
   .md\:flex-row {
