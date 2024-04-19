@@ -23,6 +23,12 @@ const CPFSFormSubmit = async () => {
         "opt-advices": formData.get("opt-advices") == "on",
         "opt-debug-mode": formData.get("opt-debug-mode") == "on",
     };
+
+    // set img src
+    document.getElementById(
+        "random-img"
+    ).src = `https://robohash.org/${jsonFormData["product-link"]}`;
+
     writeDebug("Working on " + jsonFormData["product-link"] + "...");
 
     const status = await Get_Status(jsonFormData["product-link"]);
