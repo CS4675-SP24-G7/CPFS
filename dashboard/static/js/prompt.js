@@ -64,7 +64,7 @@ const Process_Not_Found = async (data) => {
     const filtered_data = await Get_Filtered_Data(data["product-link"]);
 
     ToastIt("Data is ready!");
-    Process_Completed(data);
+    await Process_Completed(data);
     return;
 };
 
@@ -72,10 +72,10 @@ const Process_Completed_No_Filter = async (data) => {
     ToastIt("Product Found, No Filtered Data!");
 
     ToastIt("Filtering Data...");
-    const filtered_data = await Get_Filtered_Data(data["product-link"]);
+    await Get_Filtered_Data(data["product-link"]);
 
     ToastIt("Data is ready!");
-    Process_Completed(data);
+    await Process_Completed(data);
     return;
 };
 
@@ -163,10 +163,8 @@ const Scrape = async (URL) => {
 };
 
 const Get_Filtered_Data = async (URL) => {
-    let filtered_data = await fetch(`${BASE_URL}/filter?url=${URL}`, {
-        mode: "no-cors",
-    });
-    return filtered_data.json();
+    let filtered_data = await fetch(`${BASE_URL}/filter?url=${URL}`);
+    return;
 };
 
 const Get_Summary = async (URL) => {
