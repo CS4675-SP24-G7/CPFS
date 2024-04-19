@@ -153,43 +153,31 @@ const Process_Completed = async (data) => {
 };
 
 const Get_Status = async (URL) => {
-    let status = await fetch(`${BASE_URL}/get_status?url=${URL}`, {
-        mode: "no-cors"
-    });
+    let status = await fetch(`${BASE_URL}/get_status?url=${URL}`);
     return status.json();
 };
 
 const Scrape = async (URL) => {
-    let data = await fetch(`${BASE_URL}/scrape?url=${URL}`, {
-        mode: "no-cors",
-    });
+    let data = await fetch(`${BASE_URL}/scrape?url=${URL}`);
     return data.json();
 };
 
 const Get_Filtered_Data = async (URL) => {
-    let filtered_data = await fetch(`${BASE_URL}/filter?url=${URL}`, {
-        mode: "no-cors",
-    });
+    let filtered_data = await fetch(`${BASE_URL}/filter?url=${URL}`);
     return;
 };
 
 const Get_Summary = async (URL) => {
-    let summary = await fetch(`${BASE_URL}/summary?url=${URL}`, {
-        mode: "no-cors",
-    });
+    let summary = await fetch(`${BASE_URL}/summary?url=${URL}`);
     return summary.json();
 };
 
 const Get_AD = async (URL) => {
-    let ad = await fetch(`${BASE_URL}/ad?url=${URL}`, {
-        mode: "no-cors",
-    });
+    let ad = await fetch(`${BASE_URL}/ad?url=${URL}`);
     return ad.json();
 };
 
 const Get_Decision = async (URL) => {
-    let decision = await fetch(`${BASE_URL}/decision?url=${URL}`, {
-        mode: "no-cors",
-    });
+    let decision = await fetch(`${BASE_URL}/decision?url=${URL}`);
     return decision.json();
 };
