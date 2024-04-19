@@ -2,18 +2,19 @@
 <!DOCTYPE html>
 <html>
 
-<header>
+<head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="'icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Customer Product Feedback System</title>
     <link rel="stylesheet" href="{% static 'css/app.min.css' %}">
 
-</header>
+</head>
 
 <body>
 
-    <div class="w-screen h-full bg-ebony-950 p-10 flex flex-col items-center gap-7">
-        <div class="2xl:w-5/12 xl:w-7/12 lg:w-8/12 sm:w-full flex flex-col gap-8">
+    <div class="w-screen h-screen bg-ebony-950 p-10 flex flex-col items-center gap-7">
+        <div class="2xl:w-5/12 xl:w-7/12 lg:w-8/12 md:w-full sm:w-full flex flex-col gap-8">
             <div>
 
                 <div class="flex flex-col gap-8">
@@ -30,6 +31,7 @@
             </div>
         </div>
     </div>
+    <script src="{% static 'js/prompt.js' %}"></script>
 </body>
 
 </html>

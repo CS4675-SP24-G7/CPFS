@@ -3,30 +3,32 @@
 {% block content %}
 
 <div class="bg-midnight-950 border border-slate-700 rounded-2xl px-10 py-7">
-    <form>
+    <form onsubmit="CPFSFormSubmit(this);return false;" id="CPFSForm">
         <div class="flex flex-col gap-5">
             <label class="text-gray-200 text-base">
                 Provide Your Amazon Product Link:
             </label>
             <textarea
                 class="w-full rounded-xl bg-ebony-950 py-3 px-5 text-white outline-none focus:outline focus:outline-slate-400 transition duration-300 ease-in-out"
-                rows="1"></textarea>
+                rows="1" name="product-link" id="product-link"
+                placeholder="https://www.amazon.com/dp/B08N5NQ69J"></textarea>
 
             <label class="text-gray-200 text-base">
-                Customize Your Analyzer:
+                Display Options:
             </label>
             <div class="px-7 py-5 rounded-xl bg-ebony-950 w-full flex flex-col gap-3">
                 <div class="flex flex-row gap-3 text-white items-center">
-                    <input type="checkbox" class="w-5 h-5 accent-indigo-500 hover:accent-indigo-700" />
-                    <label>Display Score</label>
+                    <input type="checkbox" class="w-5 h-5 accent-indigo-500 hover:accent-indigo-700" id="opt-score"
+                        name="opt-score" />
+                    <label>Score</label>
                 </div>
                 <div class="flex flex-row gap-3 text-white items-center">
-                    <input type="checkbox" class="w-5 h-5 accent-indigo-500" />
-                    <label>Discover Reddit Source</label>
+                    <input type="checkbox" class="w-5 h-5 accent-indigo-500" id="opt-reddit" name="opt-reddit" />
+                    <label>Reddit Source</label>
                 </div>
                 <div class="flex flex-row gap-3 text-white items-center">
-                    <input type="checkbox" class="w-5 h-5 accent-indigo-500" />
-                    <label>Evaluate Pros and Cons</label>
+                    <input type="checkbox" class="w-5 h-5 accent-indigo-500" id="opt-ad" name="opt-ad" />
+                    <label>Advantages and Disadvantages</label>
                 </div>
             </div>
 
@@ -41,38 +43,24 @@
     </form>
 </div>
 
-<div class="bg-midnight-950 border border-slate-700 rounded-2xl px-10 py-7 flex flex-col gap-3">
-    <div
-        class="p-2 text-2xl w-fit bg-indigo-500 rounded-lg text-white hover:bg-indigo-700 transition duration-300 ease-in-out">
-        3/5
+<div class="bg-midnight-950 border border-slate-700 rounded-2xl px-10 py-7  flex flex-col gap-3"
+    id="amazon-summary-card">
+    <div id="amazon-summary-loading" class="w-full h-fit animate-pulse flex flex-col gap-3">{% include 'pulse.html' %}
     </div>
-    <div class="text-xl font-bold text-white">What do Amazon Customers say?</div>
-    <div class="text-base text-slate-300 font-serif">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna
-        aliqua. A iaculis at erat pellentesque adipiscing commodo. Maecenas volutpat blandit aliquam etiam erat velit
-        scelerisque. Arcu cursus vitae congue mauris rhoncus aenean. Posuere lorem ipsum dolor sit amet consectetur
-        adipiscing
-        elit duis. Sit amet nisl purus in mollis nunc sed id semper. Magna eget est lorem ipsum dolor sit amet
-        consectetur
-        adipiscing. Lacinia at quis risus sed. Fringilla urna porttitor rhoncus dolor purus non enim praesent elementum.
-        Facilisis sed odio morbi quis.
-        Lacinia quis vel eros donec ac odio tempor. Eu sem integer vitae justo eget magna. Faucibus nisl tincidunt eget
-        nullam
-        non nisi est sit amet. Id donec ultrices tincidunt arcu non sodales neque. Dis parturient montes nascetur
-        ridiculus mus
-        mauris vitae ultricies leo. Ipsum consequat nisl vel pretium lectus quam id leo in. Elementum nisi quis eleifend
-        quam.
-        Bibendum enim facilisis gravida neque convallis. Et molestie ac feugiat sed lectus vestibulum mattis
-        ullamcorper. A
-        condimentum vitae sapien pellentesque habitant. Neque vitae tempus quam pellentesque nec. Elit sed vulputate mi
-        sit
-        amet. Proin sed libero enim sed faucibus turpis in. Est placerat in egestas erat imperdiet sed euismod nisi
-        porta.
-        Et odio pellentesque diam volutpat commodo sed.
+    <div class="w-full h-fit flex flex-col gap-3" id="amazon-summary">
+        <div
+            class="p-2 text-2xl w-fit bg-indigo-500 rounded-lg text-white hover:bg-indigo-700 transition duration-300 ease-in-out">
+            3/5
+        </div>
+        <div class="text-xl font-bold text-white">What do Amazon Customers say?</div>
+        <div class="text-base text-slate-300 font-serif" id="amazon-summary-content">
+            Content is loading...
+        </div>
     </div>
+
 </div>
-<div class="bg-midnight-950 border border-slate-700 rounded-2xl px-10 py-7 flex flex-col gap-3">
+<div class="bg-midnight-950 border border-slate-700 rounded-2xl px-10 py-7 flex flex-col gap-3"
+    id="reddit-summary-card">
     <div
         class="p-2 text-2xl w-fit bg-indigo-500 rounded-lg text-white hover:bg-indigo-700 transition duration-300 ease-in-out">
         5/5
@@ -104,7 +92,8 @@
     </div>
 </div>
 
-<div class="bg-midnight-950 border border-slate-700 rounded-2xl px-10 py-7 flex flex-row gap-8">
+<div class="bg-midnight-950 border border-slate-700 rounded-2xl px-10 py-7 flex md:flex-row flex-col gap-8"
+    id="ad-card">
 
     <div class="flex-1 text-base text-slate-300 font-serif flex flex-col gap-3">
         <div
@@ -130,6 +119,7 @@
             aliqua.
         </div>
     </div>
+
     <div class="flex-1 text-base text-slate-300 font-serif flex flex-col gap-3">
         <div
             class="p-2 text-2xl w-fit bg-red-500 rounded-lg text-white hover:bg-red-700 transition duration-300 ease-in-out">
@@ -156,7 +146,7 @@
     </div>
 </div>
 
-<div class="bg-midnight-950 border border-slate-700 rounded-2xl px-10 py-7 flex flex-col gap-3">
+<div class="bg-midnight-950 border border-slate-700 rounded-2xl px-10 py-7 flex flex-col gap-3" id="advice-card">
     <div
         class="p-2 text-2xl w-fit bg-indigo-500 rounded-lg text-white hover:bg-indigo-700 transition duration-300 ease-in-out">
         Yes
