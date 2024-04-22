@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-
+{% load static %}
 {% block content %}
 
 <div class="bg-midnight-950 border border-slate-600 rounded-2xl px-10 py-7">
@@ -103,11 +103,12 @@
     </div>
 </div>
 
-<div class="bg-midnight-950 border border-slate-700 rounded-2xl px-10 py-7 flex flex-row gap-8" id="ad-card">
+<div class="bg-midnight-950 border border-slate-700 justify-evenly rounded-2xl px-10 py-7 flex flex-row gap-8"
+    id="ad-card">
     <div id="ad-loading" class="w-full h-fit animate-pulse flex flex-col gap-3">
         {% include 'pulse.html' %}
     </div>
-    <div id="ad" class="flex flex-col justify-content-evenly md:flex-row gap-3">
+    <div id="ad" class="flex flex-col justify-content-evenly  md:flex-row gap-3">
         <div class="flex-1 text-base text-slate-300 font-serif flex flex-col gap-3">
             <div
                 class="p-2 text-xl w-fit bg-green-500 rounded-lg text-white hover:bg-green-700 transition duration-300 ease-in-out">
