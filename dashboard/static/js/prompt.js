@@ -1,4 +1,4 @@
-const BASE_URL = "https://crawler.cpfs.site";
+const BASE_URL = "http://127.0.0.1:8080";
 
 const CPFSFormSubmit = async () => {
     hideAllIds([
@@ -105,6 +105,29 @@ const Process_Completed = async (data) => {
 
     ToastIt("Summary is ready!");
 
+    if (data["opt-reddit"]) {
+        ToastIt("Generating Reddit Summary...");
+        // Get Reddit Summary && Set Reddit Summary
+        let reddit_summary = (await Get_Reddit(data["product-link"]))[0];
+        console.log(reddit_summary);
+        let reddit_summary_text = reddit_summary["summary"];
+        let reddit_rating = reddit_summary["rating"];
+
+        // round 1 decimal
+        reddit_rating = parseFloat(reddit_rating).toFixed(1);
+
+        document.getElementById("reddit-summary-content").innerText =
+            reddit_summary_text;
+        document.getElementById(
+            "reddit-summary-score"
+        ).innerText = `${reddit_rating}/5`;
+
+        hideAllIds(["reddit-summary-loading"]);
+        showAllIds(["reddit-summary"]);
+
+        ToastIt("Reddit Summary is ready!");
+    }
+
     if (data["opt-ad"]) {
         ToastIt("Generating Advantages and Disadvantages...");
         // Get AD && Set AD
@@ -175,6 +198,11 @@ const Get_Filtered_Data = async (URL) => {
 
 const Get_Summary = async (URL) => {
     let summary = await fetch(`${BASE_URL}/summary?url=${URL}`);
+    return summary.json();
+};
+
+const Get_Reddit = async (URL) => {
+    let summary = await fetch(`${BASE_URL}/reddit_summary?url=${URL}`);
     return summary.json();
 };
 
