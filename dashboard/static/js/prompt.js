@@ -1,4 +1,4 @@
-const BASE_URL = "http://127.0.0.1:8080";
+const BASE_URL = "http://192.168.1.4:8080";
 
 const CPFSFormSubmit = async () => {
     hideAllIds([
@@ -66,6 +66,26 @@ const Process_Not_Found = async (data) => {
     ToastIt("Scraping Data...");
     const scraped_data = await Scrape(data["product-link"]);
 
+    console.log(scraped_data);
+
+    // if (
+    //     scraped_data["product_titlle"] == NaN ||
+    //     scraped_data["product_titlle"] == undefined ||
+    //     scraped_data["product_titlle"] == null ||
+    //     scraped_data["product_titlle"] == ""
+    // ) {
+    //     ToastIt("Product Not Found!");
+    //     document.getElementById("product-link").value = "";
+    //     window.alert("Product Not Found!");
+    //     hideAllIds([
+    //         "amazon-summary-card",
+    //         "reddit-summary-card",
+    //         "ad-card",
+    //         "advices-card",
+    //     ]);
+    //     return;
+    // }
+
     ToastIt("Filtering Data...");
     const filtered_data = await Get_Filtered_Data(data["product-link"]);
 
@@ -91,6 +111,7 @@ const Process_Completed = async (data) => {
     // Get Summary && Set Summary
     ToastIt("Generating Summary...");
     let amazon_summary = (await Get_Summary(data["product-link"]))[0];
+
     let summary = amazon_summary["summary"];
     let rating = amazon_summary["rating"];
 
@@ -104,6 +125,11 @@ const Process_Completed = async (data) => {
     showAllIds(["amazon-summary"]);
 
     ToastIt("Summary is ready!");
+
+    if (rating == "N/A") {
+        hideAllIds(["reddit-summary-card", "ad-card", "advices-card"]);
+        return;
+    }
 
     if (data["opt-reddit"]) {
         ToastIt("Generating Reddit Summary...");
