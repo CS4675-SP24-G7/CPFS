@@ -72,9 +72,6 @@ const Options_Checked = (options) => {
         loading_options.push("ad-loading");
         hidden_options.push("ad");
     }
-    if (options["opt-debug-mode"]) {
-        display_options.push("debug-card");
-    }
     if (options["opt-advices"]) {
         display_options.push("advices-card");
         loading_options.push("advices-loading");

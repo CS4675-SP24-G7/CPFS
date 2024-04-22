@@ -15,6 +15,17 @@ const CPFSFormSubmit = async () => {
 
     var CPFSForm = document.forms.CPFSForm;
     var formData = new FormData(CPFSForm);
+
+    if (formData.get("product-link") == "") {
+        window.alert("Please enter a product link!");
+        return;
+    }
+
+    if (formData.get("opt-debug-mode") == "on") {
+        writeDebug("Debug Mode ON");
+        showAllIds(["debug-card"]);
+    }
+
     var jsonFormData = {
         "product-link": formData.get("product-link"),
         "opt-score": formData.get("opt-score") == "on",
@@ -66,7 +77,7 @@ const Process_Not_Found = async (data) => {
     ToastIt("Scraping Data...");
     const scraped_data = await Scrape(data["product-link"]);
 
-    console.log(scraped_data);
+    // console.log(scraped_data);
 
     // if (
     //     scraped_data["product_titlle"] == NaN ||
