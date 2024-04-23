@@ -51,7 +51,7 @@
 
             </div>
 
-            <div class="flex w-full justify-center">
+            <div class="flex w-full justify-center" id="analyze-btn">
                 <button
                     class="px-5 py-3 bg-midnight-500 rounded-lg text-white hover:bg-midnight-700 transition duration-300 ease-in-out"
                     type="submit">Analyze</button>
@@ -64,8 +64,29 @@
 
 <div class="w-full h-fit bg-midnight-950 border border-slate-700 rounded-2xl px-10 py-7 flex flex-col gap-3"
     id="debug-card">
-    <div class="px-7 py-5 h-32 gap-1 overflow-auto text-sm text-slate-300 font-mono rounded-xl bg-ebony-950 w-full flex flex-col gap-3 border border-slate-700"
+    <div class="px-7 py-5 h-32 overflow-auto text-sm text-slate-300 font-mono rounded-xl bg-ebony-950 w-full flex flex-col gap-3 border border-slate-700"
         id="debug-content">
+    </div>
+
+</div>
+
+<div class="gap-2 text-white text-base w-full h-fit bg-midnight-950 border border-slate-700 rounded-2xl px-10 py-7 flex flex-col"
+    id="details-card">
+    <div
+        class="p-2 text-2xl w-fit bg-midnight-500 rounded-lg text-white hover:bg-midnight-700 transition duration-300 ease-in-out display-score">
+        Amazon Original Rating: <span id="amazon-original-score">
+
+        </span>
+
+    </div>
+    <div><strong>Product Title: </strong></div>
+    <div class="mb-2 min-h-10 bg-ebony-950 px-3 py-2 hover:bg-ebony-900 rounded-xl" id="details-product-title">
+    </div>
+    <div><strong>Product URL: </strong></div>
+    <div class="mb-2 min-h-10 bg-ebony-950 px-3 py-2 hover:bg-ebony-900 rounded-xl" id="details-product-url">
+    </div>
+    <div><strong>Last Amazon Update: </strong></div>
+    <div class="mb-3 min-h-10 bg-ebony-950 px-3 py-2 hover:bg-ebony-900 rounded-xl" id="details-product-last-update">
     </div>
 
 </div>

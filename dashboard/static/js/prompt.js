@@ -1,4 +1,4 @@
-const BASE_URL = "http://192.168.1.4:8080";
+const BASE_URL = "http://127.0.0.1:8080";
 
 const CPFSFormSubmit = async () => {
     hideAllIds([
@@ -11,6 +11,7 @@ const CPFSFormSubmit = async () => {
         "advices-card",
         "advices",
         "debug-card",
+        "analyze-btn",
     ]);
 
     var CPFSForm = document.forms.CPFSForm;
@@ -119,6 +120,21 @@ const Process_Completed_No_Filter = async (data) => {
 const Process_Completed = async (data) => {
     ToastIt("Product Found with Filtered Data!");
 
+    ToastIt("Getting Product Details...");
+    let product_details = (await Get_Product_Details(data["product-link"]))[0];
+
+    ToastIt("Setting Product Details...");
+    document.getElementById("details-product-title").innerText =
+        product_details["product_title"];
+    document.getElementById("details-product-url").innerText =
+        product_details["product_url"];
+    document.getElementById("details-product-last-update").innerText =
+        product_details["last_update"];
+    document.getElementById("amazon-original-score").innerText =
+        product_details["original_rating"];
+
+    showAllIds(["details-card"]);
+
     // Get Summary && Set Summary
     ToastIt("Generating Summary...");
     let amazon_summary = (await Get_Summary(data["product-link"]))[0];
@@ -142,80 +158,90 @@ const Process_Completed = async (data) => {
         return;
     }
 
+    let promises = [];
+
     if (data["opt-reddit"]) {
-        ToastIt("Generating Reddit Summary...");
-        // Get Reddit Summary && Set Reddit Summary
-        let reddit_summary = (await Get_Reddit(data["product-link"]))[0];
-        console.log(reddit_summary);
-        let reddit_summary_text = reddit_summary["summary"];
-        let reddit_rating = reddit_summary["rating"];
-
-        // round 1 decimal
-        reddit_rating = parseFloat(reddit_rating).toFixed(1);
-
-        document.getElementById("reddit-summary-content").innerText =
-            reddit_summary_text;
-        document.getElementById(
-            "reddit-summary-score"
-        ).innerText = `${reddit_rating}/5`;
-
-        hideAllIds(["reddit-summary-loading"]);
-        showAllIds(["reddit-summary"]);
-
-        ToastIt("Reddit Summary is ready!");
+        promises.push(
+            (async () => {
+                ToastIt("Generating Reddit Summary...");
+                let reddit_summary = (
+                    await Get_Reddit(data["product-link"])
+                )[0];
+                console.log(reddit_summary);
+                let reddit_summary_text = reddit_summary["summary"];
+                let reddit_rating = reddit_summary["rating"];
+                reddit_rating = parseFloat(reddit_rating).toFixed(1);
+                document.getElementById("reddit-summary-content").innerText =
+                    reddit_summary_text;
+                document.getElementById(
+                    "reddit-summary-score"
+                ).innerText = `${reddit_rating}/5`;
+                hideAllIds(["reddit-summary-loading"]);
+                showAllIds(["reddit-summary"]);
+                ToastIt("Reddit Summary is ready!");
+            })()
+        );
     }
 
     if (data["opt-ad"]) {
-        ToastIt("Generating Advantages and Disadvantages...");
-        // Get AD && Set AD
-        let ad = (await Get_AD(data["product-link"]))[0];
-        let advantages = ad["advantages"];
-        let disadvantages = ad["disadvantages"];
-
-        let advantages_list = document.getElementById("advantages-content");
-        let disadvantages_list = document.getElementById(
-            "disadvantages-content"
+        promises.push(
+            (async () => {
+                ToastIt("Generating Advantages and Disadvantages...");
+                let ad = (await Get_AD(data["product-link"]))[0];
+                let advantages = ad["advantages"];
+                let disadvantages = ad["disadvantages"];
+                let advantages_list =
+                    document.getElementById("advantages-content");
+                let disadvantages_list = document.getElementById(
+                    "disadvantages-content"
+                );
+                advantages_list.innerHTML = "";
+                disadvantages_list.innerHTML = "";
+                advantages.forEach((element) => {
+                    let divE = document.createElement("div");
+                    divE.innerText = element;
+                    advantages_list.appendChild(divE);
+                });
+                disadvantages.forEach((element) => {
+                    let divE = document.createElement("div");
+                    divE.innerText = element;
+                    disadvantages_list.appendChild(divE);
+                });
+                hideAllIds(["ad-loading"]);
+                showAllIds(["ad"]);
+                ToastIt("Advantages and Disadvantages are ready!");
+            })()
         );
-
-        advantages_list.innerHTML = "";
-        disadvantages_list.innerHTML = "";
-
-        advantages.forEach((element) => {
-            let divE = document.createElement("div");
-            divE.innerText = element;
-            advantages_list.appendChild(divE);
-        });
-
-        disadvantages.forEach((element) => {
-            let divE = document.createElement("div");
-            divE.innerText = element;
-            disadvantages_list.appendChild(divE);
-        });
-
-        hideAllIds(["ad-loading"]);
-        showAllIds(["ad"]);
-        ToastIt("Advantages and Disadvantages are ready!");
     }
 
     if (data["opt-advices"]) {
-        ToastIt("Generating Decision...");
-        // Get Decisions && Set Decisions
-        let decision = (await Get_Decision(data["product-link"]))[0];
-        let buying_decision = decision["buying_decision"];
-        let reason = decision["reason"];
+        promises.push(
+            (async () => {
+                ToastIt("Generating Decision...");
+                let decision = (await Get_Decision(data["product-link"]))[0];
+                let buying_decision = decision["buying_decision"];
+                let reason = decision["reason"];
+                if (buying_decision == true) {
+                    document.getElementById("advices-suggestion").innerText =
+                        "YES";
+                } else {
+                    document.getElementById("advices-suggestion").innerText =
+                        "NO";
+                }
+                document.getElementById("advices-content").innerText = reason;
+                hideAllIds(["advices-loading"]);
+                showAllIds(["advices"]);
+                ToastIt("Decision is ready!");
 
-        if (buying_decision == true) {
-            document.getElementById("advices-suggestion").innerText = "YES";
-        } else {
-            document.getElementById("advices-suggestion").innerText = "NO";
-        }
-        document.getElementById("advices-content").innerText = reason;
-
-        hideAllIds(["advices-loading"]);
-        showAllIds(["advices"]);
-
-        ToastIt("Decision is ready!");
+                showAllIds(["analyze-btn"]);
+            })()
+        );
     }
+
+    // Wait for all promises to resolve
+    Promise.all(promises).catch((error) => {
+        console.error(error);
+    });
 };
 
 const Get_Status = async (URL) => {
@@ -251,4 +277,9 @@ const Get_AD = async (URL) => {
 const Get_Decision = async (URL) => {
     let decision = await fetch(`${BASE_URL}/decision?url=${URL}`);
     return decision.json();
+};
+
+const Get_Product_Details = async (URL) => {
+    let details = await fetch(`${BASE_URL}/product_details?url=${URL}`);
+    return details.json();
 };

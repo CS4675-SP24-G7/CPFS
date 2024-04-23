@@ -26,6 +26,7 @@ hideAllIds([
     "advices-card",
     "advices",
     "debug-card",
+    "details-card",
 ]);
 
 writeDebug("App Loaded");
