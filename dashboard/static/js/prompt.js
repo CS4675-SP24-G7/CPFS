@@ -14,6 +14,10 @@ const CPFSFormSubmit = async () => {
         "analyze-btn",
     ]);
 
+    document.getElementById("details-product-title").innerHTML = "";
+    document.getElementById("details-product-url").innerHTML = "";
+    document.getElementById("details-product-last-update").innerHTML = "";
+
     var CPFSForm = document.forms.CPFSForm;
     var formData = new FormData(CPFSForm);
 
@@ -80,23 +84,45 @@ const Process_Not_Found = async (data) => {
 
     // console.log(scraped_data);
 
-    // if (
-    //     scraped_data["product_titlle"] == NaN ||
-    //     scraped_data["product_titlle"] == undefined ||
-    //     scraped_data["product_titlle"] == null ||
-    //     scraped_data["product_titlle"] == ""
-    // ) {
-    //     ToastIt("Product Not Found!");
-    //     document.getElementById("product-link").value = "";
-    //     window.alert("Product Not Found!");
-    //     hideAllIds([
-    //         "amazon-summary-card",
-    //         "reddit-summary-card",
-    //         "ad-card",
-    //         "advices-card",
-    //     ]);
-    //     return;
-    // }
+    if (
+        scraped_data["data"] == NaN ||
+        scraped_data["data"] == undefined ||
+        scraped_data["data"] == null ||
+        scraped_data["data"] == []
+    ) {
+        ToastIt("No reviews available for this product!");
+        document.getElementById("product-link").value = "";
+        window.alert("No reviews available for this product!");
+        hideAllIds([
+            "amazon-summary-card",
+            "reddit-summary-card",
+            "ad-card",
+            "advices-card",
+        ]);
+        return;
+    } else if (
+        scraped_data["data"]["FIVE_STAR"] &&
+        scraped_data["data"]["FIVE_STAR"].length == 0 &&
+        scraped_data["data"]["FOUR_STAR"] &&
+        scraped_data["data"]["FOUR_STAR"].length == 0 &&
+        scraped_data["data"]["THREE_STAR"] &&
+        scraped_data["data"]["THREE_STAR"].length == 0 &&
+        scraped_data["data"]["TWO_STAR"] &&
+        scraped_data["data"]["TWO_STAR"].length == 0 &&
+        scraped_data["data"]["ONE_STAR"] &&
+        scraped_data["data"]["ONE_STAR"].length == 0
+    ) {
+        ToastIt("No reviews available for this product!");
+        document.getElementById("product-link").value = "";
+        window.alert("No reviews available for this product!");
+        hideAllIds([
+            "amazon-summary-card",
+            "reddit-summary-card",
+            "ad-card",
+            "advices-card",
+        ]);
+        return;
+    }
 
     ToastIt("Filtering Data...");
     const filtered_data = await Get_Filtered_Data(data["product-link"]);
@@ -108,6 +134,50 @@ const Process_Not_Found = async (data) => {
 
 const Process_Completed_No_Filter = async (data) => {
     ToastIt("Product Found, No Filtered Data!");
+
+    const scraped_data = await Scrape(data["product-link"]);
+
+    // console.log(scraped_data);
+
+    if (
+        scraped_data["data"] == NaN ||
+        scraped_data["data"] == undefined ||
+        scraped_data["data"] == null ||
+        scraped_data["data"] == []
+    ) {
+        ToastIt("No reviews available for this product!");
+        document.getElementById("product-link").value = "";
+        window.alert("No reviews available for this product!");
+        hideAllIds([
+            "amazon-summary-card",
+            "reddit-summary-card",
+            "ad-card",
+            "advices-card",
+        ]);
+        return;
+    } else if (
+        scraped_data["data"]["FIVE_STAR"] &&
+        scraped_data["data"]["FIVE_STAR"].length == 0 &&
+        scraped_data["data"]["FOUR_STAR"] &&
+        scraped_data["data"]["FOUR_STAR"].length == 0 &&
+        scraped_data["data"]["THREE_STAR"] &&
+        scraped_data["data"]["THREE_STAR"].length == 0 &&
+        scraped_data["data"]["TWO_STAR"] &&
+        scraped_data["data"]["TWO_STAR"].length == 0 &&
+        scraped_data["data"]["ONE_STAR"] &&
+        scraped_data["data"]["ONE_STAR"].length == 0
+    ) {
+        ToastIt("No reviews available for this product!");
+        document.getElementById("product-link").value = "";
+        window.alert("No reviews available for this product!");
+        hideAllIds([
+            "amazon-summary-card",
+            "reddit-summary-card",
+            "ad-card",
+            "advices-card",
+        ]);
+        return;
+    }
 
     ToastIt("Filtering Data...");
     await Get_Filtered_Data(data["product-link"]);
@@ -167,7 +237,7 @@ const Process_Completed = async (data) => {
                 let reddit_summary = (
                     await Get_Reddit(data["product-link"])
                 )[0];
-                console.log(reddit_summary);
+                // console.log(reddit_summary);
                 let reddit_summary_text = reddit_summary["summary"];
                 let reddit_rating = reddit_summary["rating"];
                 reddit_rating = parseFloat(reddit_rating).toFixed(1);

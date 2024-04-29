@@ -9,4 +9,4 @@ WORKDIR /CPFS
 EXPOSE 8080
 
 ENTRYPOINT ["python", "./manage.py"]
-CMD ["runserver", "0.0.0.0:8080"]
+CMD ["runserver", "0.0.0.0:8081"]
